@@ -1,44 +1,28 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import { Button } from 'react-native-windows';
 
-function App(): React.JSX.Element {  
+import Home from './screens/Home';
+ import Preferences from './screens/Preferences'
 
-  const [isButtonActive, setIsButtonActive] = React.useState(false);
-  
+function App(): React.JSX.Element {   
+
+  const [tab, setTab] = React.useState(1);
+    
   return (
-    <SafeAreaView>
-      <View style={styles.floatingButton} >
-        <Button  title={isButtonActive ? '🏠' : '🔧'} onPress={() => setIsButtonActive(!isButtonActive)} />
+    <SafeAreaView style={styles.sectionContainer}>
+      <View style={[styles.floatingButton, {top:10, left:16}]} >
+        <Button  title={'🏠'} onPress={() => setTab(1)} />
+      </View>
+      <View style={[styles.floatingButton, {top:60, left:16}]} >
+        <Button  title={'🔧'} onPress={() => setTab(2)} />
       </View>
 
-      {isButtonActive && (
-        <View >
-          <Text>This is your Dashboard</Text>
-        </View>
-      ) ||
-      <View>
-        <Text>This is your Settings</Text>
-      </View>
-      }
-
-      
+      {tab == 1 &&        
+        <Home/>             
+      || tab == 2 &&       
+        <Preferences/>     
+      }      
     </SafeAreaView>
   );
 }
@@ -46,17 +30,17 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
-    paddingHorizontal: 24,
+    paddingHorizontal: 15,
+    color: 'white',  
+    height: '100%',      
   },
   floatingButton: {
-    position: 'absolute',
-    top: 16,
-    left: 16,
+    position: 'absolute',    
     width: 50,
     height: 35,
     borderRadius: 14,    
     backgroundColor: 'blue',
-  },
+  },  
 });
 
 export default App;
